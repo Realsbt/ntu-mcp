@@ -2,7 +2,7 @@
 
 面向南洋理工大学（NTU Singapore）学生的非官方 MCP 服务，将 NTULearn（Blackboard Learn）的课程、公告、日历、成绩和课程文件接入支持 MCP 的 AI 客户端。
 
-本仓库基于 [kingdonkatsu/ntulearn-mcp](https://github.com/kingdonkatsu/ntulearn-mcp) 扩展，默认仅从 **Chrome** 读取登录会话，并新增**课程资料增量同步**与**作业统一汇总**，共提供 10 个工具。保留上游 MIT 许可证与版权声明。
+默认仅从 **Chrome** 读取登录会话，并新增**课程资料增量同步**与**作业统一汇总**，共提供 10 个工具。
 
 ## 能做什么
 
