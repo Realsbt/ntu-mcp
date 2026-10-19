@@ -17,11 +17,8 @@ logger = logging.getLogger(__name__)
 NTULEARN_DOMAIN = "ntulearn.ntu.edu.sg"
 COOKIE_NAME = "BbRouter"
 
-# Order: most-likely-to-have-a-fresh-cookie first. Edge is the default browser
-# on Windows; Chrome is the most common daily; Firefox is most likely to work
-# on Windows even when Chrome's App-Bound Encryption blocks reads; Brave is a
-# Chromium variant kept for completeness.
-DEFAULT_BROWSERS: tuple[str, ...] = ("edge", "chrome", "firefox", "brave")
+# Local preference: read NTULearn sessions from Chrome only.
+DEFAULT_BROWSERS: tuple[str, ...] = ("chrome",)
 
 # Empirically (see CLAUDE.md) Mac + Claude Desktop's mcpb child can read Chrome
 # cookies most of the time but occasionally returns nothing — SQLite read

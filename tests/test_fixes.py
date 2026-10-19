@@ -54,9 +54,9 @@ class ToolSurfaceTests(unittest.IsolatedAsyncioTestCase):
                     f"{t.name} annotations missing {key}",
                 )
 
-    def test_only_download_file_is_non_read_only(self) -> None:
+    def test_only_download_and_sync_are_non_read_only(self) -> None:
         non_read_only = [t.name for t in self._tools if t.annotations and not t.annotations.readOnlyHint]
-        self.assertEqual(non_read_only, ["ntulearn_download_file"])
+        self.assertEqual(set(non_read_only), {"ntulearn_download_file", "ntulearn_sync_materials"})
 
     def test_pagination_params_on_list_tools(self) -> None:
         for tname in (

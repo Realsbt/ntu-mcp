@@ -268,13 +268,13 @@ class NTULearnClient:
     # File download
     # -------------------------------------------------------------------------
 
-    async def download_bytes(self, url: str) -> tuple[bytes, str | None]:
+    async def download_bytes(self, url: str, *, max_bytes: int | None = None) -> tuple[bytes, str | None]:
         """Download a file URL, returning (content_bytes, content_type).
 
         Same-origin URLs use the authenticated NTULearn client. Allowed
         Blackboard CDN URLs use a separate cookie-free client.
         """
-        response = await self._download_response(url)
+        response = await self._download_response(url, max_bytes=max_bytes)
 
         if response.status_code == 401:
             raise BbRouterExpiredError()
@@ -284,10 +284,27 @@ class NTULearnClient:
         content_type = response.headers.get("content-type")
         return response.content, content_type
 
-    async def _download_response(self, url: str) -> httpx.Response:
+    async def _bounded_get(self, client: httpx.AsyncClient, url: str, max_bytes: int | None) -> httpx.Response:
+        if max_bytes is None:
+            return await client.get(url)
+        async with client.stream("GET", url) as response:
+            if response.status_code == 401:
+                raise BbRouterExpiredError()
+            if not response.is_success:
+                raise BlackboardAPIError(response.status_code, "Download request failed")
+            chunks = bytearray()
+            async for chunk in response.aiter_bytes():
+                if len(chunks) + len(chunk) > max_bytes:
+                    raise ValueError("Download exceeds configured byte limit")
+                chunks.extend(chunk)
+            # Content is already decoded; do not decode a second time.
+            return httpx.Response(response.status_code, content=bytes(chunks),
+                                  headers={"content-type": response.headers.get("content-type", "application/octet-stream")})
+
+    async def _download_response(self, url: str, *, max_bytes: int | None = None) -> httpx.Response:
         parsed = urlsplit(url)
         if not parsed.scheme and not parsed.netloc:
-            return await self._client.get(url)
+            return await self._bounded_get(self._client, url, max_bytes)
 
         if parsed.scheme not in ("http", "https"):
             raise ValueError(f"Unsafe download URL scheme: {parsed.scheme}")
@@ -300,11 +317,11 @@ class NTULearnClient:
             == (base.port or _default_port(base.scheme))
         ):
             path = urlunsplit(("", "", parsed.path or "/", parsed.query, ""))
-            return await self._client.get(path)
+            return await self._bounded_get(self._client, path, max_bytes)
 
         host = parsed.hostname or ""
         if host.endswith(".blackboard.com"):
-            return await self._external_client.get(url)
+            return await self._bounded_get(self._external_client, url, max_bytes)
 
         raise ValueError(f"Unsafe download URL host: {host}")
 

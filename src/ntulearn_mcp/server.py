@@ -1139,7 +1139,8 @@ _FILE_INFO_SCHEMA = {
 
 @app.list_tools()
 async def list_tools() -> list[Tool]:
-    return [
+    from ntulearn_mcp.workflows import tools as workflow_tools
+    return [*workflow_tools(),
         Tool(
             name=f"{_TOOL_PREFIX}_list_courses",
             description=(
@@ -1636,8 +1637,11 @@ async def call_tool(
 async def _dispatch(
     name: str, arguments: dict[str, Any]
 ) -> tuple[list[TextContent | ImageContent], dict[str, Any]]:
+    from ntulearn_mcp.workflows import sync_materials, assignments
     client = get_client()
     handlers = {
+        "ntulearn_sync_materials": sync_materials,
+        "ntulearn_get_assignments": assignments,
         f"{_TOOL_PREFIX}_list_courses": _list_courses,
         f"{_TOOL_PREFIX}_get_course_contents": _get_course_contents,
         f"{_TOOL_PREFIX}_search_course_content": _search_course_content,
