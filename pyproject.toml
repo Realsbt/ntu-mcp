@@ -38,9 +38,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/kingdonkatsu/ntulearn-mcp"
-Repository = "https://github.com/kingdonkatsu/ntulearn-mcp"
-Issues = "https://github.com/kingdonkatsu/ntulearn-mcp/issues"
+Homepage = "https://github.com/Realsbt/ntu-mcp"
+Repository = "https://github.com/Realsbt/ntu-mcp"
+Issues = "https://github.com/Realsbt/ntu-mcp/issues"
 
 [project.scripts]
 ntulearn-mcp = "ntulearn_mcp.server:main"

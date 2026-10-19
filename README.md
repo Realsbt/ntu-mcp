@@ -1,8 +1,8 @@
-# NTULearn MCP
+# NTU MCP
 
 面向南洋理工大学（NTU Singapore）学生的非官方 MCP 服务，将 NTULearn（Blackboard Learn）的课程、公告、日历、成绩和课程文件接入支持 MCP 的 AI 客户端。
 
-默认仅从 **Chrome** 读取登录会话，并新增**课程资料增量同步**与**作业统一汇总**，共提供 10 个工具。
+连接 NTULearn 与 AI 助手，集中查询课程公告、作业截止时间和成绩，并将课程资料增量同步到本地。共提供 10 个工具，默认从 **Chrome** 读取登录会话。
 
 ## 能做什么
 
@@ -30,8 +30,8 @@
 ### 1. 下载并安装本仓库
 
 ```bash
-git clone https://github.com/Realsbt/ntulearn-mcp.git
-cd ntulearn-mcp
+git clone https://github.com/Realsbt/ntu-mcp.git
+cd ntu-mcp
 uv sync --frozen
 ```
 
@@ -43,7 +43,7 @@ uv sync --frozen
 
 ### 3. 配置 MCP 客户端
 
-在客户端的 MCP 配置中加入以下内容，将 `/absolute/path/to/ntulearn-mcp` 替换为克隆目录的**绝对路径**。如果客户端找不到 `uv`，也应将 `command` 改为它的绝对路径。
+在客户端的 MCP 配置中加入以下内容，将 `/absolute/path/to/ntu-mcp` 替换为克隆目录的**绝对路径**。如果客户端找不到 `uv`，也应将 `command` 改为它的绝对路径。
 
 ```json
 {
@@ -52,7 +52,7 @@ uv sync --frozen
       "command": "uv",
       "args": [
         "--directory",
-        "/absolute/path/to/ntulearn-mcp",
+        "/absolute/path/to/ntu-mcp",
         "run",
         "ntulearn-mcp"
       ]
@@ -224,3 +224,7 @@ src/ntulearn_mcp/
 - 下载的课程资料不因本项目开源而获得再分发许可。
 
 项目以 [MIT 许可证](LICENSE) 发布，按现状提供，不作担保。
+
+## 致谢
+
+本项目在 [kingdonkatsu/ntulearn-mcp](https://github.com/kingdonkatsu/ntulearn-mcp) 的基础上开发，感谢原作者的工作。上游 MIT 许可证及版权声明见 [LICENSE](LICENSE)。

@@ -1,7 +1,7 @@
 {
   "manifest_version": "0.4",
   "name": "ntulearn-mcp",
-  "display_name": "NTULearn",
+  "display_name": "NTU MCP",
   "version": "0.2.0",
   "description": "MCP server for NTULearn (NTU Singapore's Blackboard Learn). Announcements, assignments, grades, and course files — across all your enrolled courses.",
   "long_description": "Lets Claude answer questions like \"what's due next week?\", \"what announcements went out this week?\", and \"organise my semester files into ~/NTU/y3s1/…\" — fanning out across all your enrolled courses automatically.\n\nAuthenticates via the BbRouter cookie — auto-read from your browser on macOS / Linux / Windows-with-Firefox. Windows + Chrome/Edge users paste the cookie into the field below (Claude Desktop stores it in your OS keychain).\n\nTools: list_courses, get_course_contents (with folder drill-down), get_upcoming (calendar + assignment due dates), get_announcements (cross-course, with since filter), get_gradebook (cross-course), search_course_content, download_file (with destination_dir for folder hierarchies), read_file_content (text extraction from PDFs / Office files; vision opt-in for diagrams).",
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kingdonkatsu/ntulearn-mcp.git"
+    "url": "https://github.com/Realsbt/ntu-mcp.git"
   },
-  "homepage": "https://github.com/kingdonkatsu/ntulearn-mcp",
-  "support": "https://github.com/kingdonkatsu/ntulearn-mcp/issues",
+  "homepage": "https://github.com/Realsbt/ntu-mcp",
+  "support": "https://github.com/Realsbt/ntu-mcp/issues",
   "license": "MIT",
   "keywords": [
     "mcp",
